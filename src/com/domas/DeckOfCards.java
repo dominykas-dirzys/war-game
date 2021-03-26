@@ -3,6 +3,7 @@ package com.domas;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DeckOfCards {
@@ -31,16 +32,18 @@ public class DeckOfCards {
         cards = tempDeck;
     }
 
-    public void dealCards(Player player1, Player player2) {
-        for (int i = 0; i < cards.size(); i++) {
-            if (i % 2 == 0) {
-                player1.getHandCards().add(cards.get(i));
-            } else {
-                player2.getHandCards().add(cards.get(i));
+    public void dealCards(Optional<Player> player1, Optional<Player> player2) {
+        if (player1.isPresent() && player2.isPresent()) {
+            for (int i = 0; i < cards.size(); i++) {
+                if (i % 2 == 0) {
+                    player1.get().getHandCards().add(cards.get(i));
+                } else {
+                    player2.get().getHandCards().add(cards.get(i));
+                }
             }
+            Collections.reverse(player1.get().getHandCards());
+            Collections.reverse(player2.get().getHandCards());
+            cards.clear();
         }
-        Collections.reverse(player1.getHandCards());
-        Collections.reverse(player2.getHandCards());
-        cards.clear();
     }
 }

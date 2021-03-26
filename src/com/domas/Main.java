@@ -1,17 +1,22 @@
 package com.domas;
 
+import java.util.Optional;
+
 public class Main {
 
     public static void main(String[] args) {
-        Player player1 = new Player();
-        Player player2 = new Player();
+        Player player1 = null;
+        Player player2 = null;
+
+        Optional<Player> playerOne = Optional.ofNullable(player1);
+        Optional<Player> playerTwo = Optional.ofNullable(player2);
 
         DeckOfCards deck = new DeckOfCards();
         deck.shuffleDeck();
 
         WarGame game = new WarGame();
-        deck.dealCards(player1, player2);
+        deck.dealCards(playerOne, playerTwo);
         game.selectTrumpSuite();
-        game.war(player1, player2);
+        game.war(playerOne, playerTwo);
     }
 }
